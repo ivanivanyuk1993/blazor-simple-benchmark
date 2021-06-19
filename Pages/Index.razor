@@ -1,0 +1,99 @@
+﻿@page "/"
+@inject IJSRuntime JsRuntime;
+
+<h1>Simple benchmark</h1>
+
+<pre>
+@cSharpBenchmarkIntsText
+</pre>
+<button class="btn btn-primary" @onclick="BenchmarkInts">Run C# benchmark with ints</button>
+
+<pre>
+@cSharpBenchmarkDoublesText
+</pre>
+<button class="btn btn-primary" @onclick="BenchmarkDoubles">Run C# benchmark with doubles</button>
+
+<pre>
+@jsBenchmarkText
+</pre>
+<button class="btn btn-primary" onclick="@jsBenchmarkText">Run JavaScript benchmark</button>
+
+@code {
+    Random random = new Random();
+    readonly string cSharpBenchmarkIntsText = @"
+// C# benchmark ints
+var a = random.Next();
+Console.WriteLine(a);
+var s = DateTime.Now;
+for (var i = 0; i < 1e8; i++)
+{
+    ++a;
+}
+var f = DateTime.Now;
+Console.WriteLine((f - s).TotalMilliseconds);
+Console.WriteLine(a);
+JsRuntime.InvokeVoidAsync(""alert"", $""Took {(f - s).TotalMilliseconds} ms"");
+";
+
+    readonly string cSharpBenchmarkDoublesText = @"
+// C# benchmark doubles
+var a = random.NextDouble();
+Console.WriteLine(a);
+var s = DateTime.Now;
+for (var i = 0; i < 1e8; i++)
+{
+    ++a;
+}
+var f = DateTime.Now;
+Console.WriteLine((f - s).TotalMilliseconds);
+Console.WriteLine(a);
+JsRuntime.InvokeVoidAsync(""alert"", $""Took {(f - s).TotalMilliseconds} ms"");
+";
+
+    readonly string jsBenchmarkText = @"
+// JavaScript benchmark
+var a = Math.random();
+console.log(a);
+var s = Date.now();
+for (var i = 0; i < 1e8; i++)
+{
+    ++a;
+}
+var f = Date.now();
+console.log(f - s);
+console.log(a);
+alert(`Took ${f - s} ms`);
+";
+
+    private void BenchmarkInts()
+    {
+        // C# benchmark ints
+        var randomList = Enumerable.Range(0, 1e8, _ => random.Next()).ToList();
+        var randomSum = 0;
+        var startTime = DateTime.Now;
+        for (var i = 0; i < randomList.Count; i++)
+        {
+            randomSum += randomList[i];
+            ++a;
+        }
+        var finishTime = DateTime.Now;
+        Console.WriteLine((finishTime - startTime).TotalMilliseconds);
+        JsRuntime.InvokeVoidAsync("alert", $"Took {(f - s).TotalMilliseconds} ms");
+    }
+
+    private void BenchmarkDoubles()
+    {
+        // C# benchmark ints
+        var a = random.NextDouble();
+        Console.WriteLine(a);
+        var s = DateTime.Now;
+        for (var i = 0; i < 1e8; i++)
+        {
+            ++a;
+        }
+        var f = DateTime.Now;
+        Console.WriteLine((f - s).TotalMilliseconds);
+        Console.WriteLine(a);
+        JsRuntime.InvokeVoidAsync("alert", $"Took {(f - s).TotalMilliseconds} ms");
+    }
+}
