@@ -23,6 +23,7 @@ for (var i = 0; i < randomList.Count; i++)
     randomSum += randomList[i];
 }
 var finishTime = DateTime.Now;
+Console.WriteLine(randomSum);
 Console.WriteLine((finishTime - startTime).TotalMilliseconds);
 _jsRuntime.InvokeVoidAsync(""alert"", $""Took {(finishTime - startTime).TotalMilliseconds}} ms"");
 ";
@@ -40,6 +41,7 @@ for (var i = 0; i < randomList.Count; i++)
     randomSum += randomList[i];
 }
 var finishTime = DateTime.Now;
+Console.WriteLine(randomSum);
 Console.WriteLine((finishTime - startTime).TotalMilliseconds);
 _jsRuntime.InvokeVoidAsync(""alert"", $""Took {(finishTime - startTime).TotalMilliseconds} ms"");
 ";
@@ -54,6 +56,7 @@ for (var i = 0; i < randomList.length; i++)
     randomSum += randomList[i];
 }
 var finishTime = Date.now();
+console.log(randomSum);
 console.log(finishTime - startTime);
 alert(`Took ${finishTime - startTime} ms`);
 ";
@@ -72,6 +75,7 @@ alert(`Took ${finishTime - startTime} ms`);
                 randomSum += randomList[i];
             }
             var finishTime = DateTime.Now;
+            Console.WriteLine(randomSum);
             Console.WriteLine((finishTime - startTime).TotalMilliseconds);
             _jsRuntime.InvokeVoidAsync("alert", $"Took {(finishTime - startTime).TotalMilliseconds} ms");
         }
@@ -90,6 +94,7 @@ alert(`Took ${finishTime - startTime} ms`);
                 randomSum += randomList[i];
             }
             var finishTime = DateTime.Now;
+            Console.WriteLine(randomSum);
             Console.WriteLine((finishTime - startTime).TotalMilliseconds);
             _jsRuntime.InvokeVoidAsync("alert", $"Took {(finishTime - startTime).TotalMilliseconds} ms");
         }
